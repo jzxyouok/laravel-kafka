@@ -34,8 +34,6 @@
 
 ## Install Composer
 
-* Recommended Reason (Sina PHP Team)
-
 `composer require nmred/kafka-php`
 
 
