@@ -16,6 +16,7 @@ use Kafka\Producer;
 use Kafka\ProducerConfig;
 
 Route::get('/producer', function () {
+    //生产者
     $config = ProducerConfig::getInstance();
     $config->setMetadataRefreshIntervalMs(10000);
     $config->setMetadataBrokerList('127.0.0.1:9292');
@@ -44,6 +45,7 @@ Route::get('/producer', function () {
 });
 
 Route::get('/consumer', function () {
+    //消费者
     $config = ConsumerConfig::getInstance();
     $config->setMetadataRefreshIntervalMs(10000);
     $config->setMetadataBrokerList('127.0.0.1:9092');
