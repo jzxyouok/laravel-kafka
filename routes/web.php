@@ -15,6 +15,16 @@ use Kafka\ConsumerConfig;
 use Kafka\Producer;
 use Kafka\ProducerConfig;
 
+Route::get('/topic', function () {
+    //添加Topic
+    $config = ConsumerConfig::getInstance();
+    $config->setTopics([
+        ['topic' => 'test',
+         'value' => 'test kafka message.',
+         'key'   => 'crazy_lee', ],
+    ]);
+});
+
 Route::get('/producer', function () {
     //生产者
     $config = ProducerConfig::getInstance();
