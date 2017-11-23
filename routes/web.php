@@ -29,7 +29,7 @@ Route::get('/producer', function () {
     //生产者
     $config = ProducerConfig::getInstance();
     $config->setMetadataRefreshIntervalMs(10000);
-    $config->setMetadataBrokerList('127.0.0.1:9292');
+    $config->setMetadataBrokerList('127.0.0.1:9092');
     $config->setBrokerVersion('0.10.0.1');
     $config->setRequiredAck(1);
     $config->setIsAsyn(false);
@@ -44,11 +44,12 @@ Route::get('/producer', function () {
         );
     });
     $producer->success(function ($result) {
-        dd($result);
+        return $result;
     });
     $producer->error(function ($errorCode) {
-        dd($errorCode);
+        return $errorCode;
     });
+
     $producer->send(true);
 
     //return view('welcome');
@@ -60,11 +61,11 @@ Route::get('/consumer', function () {
     $config->setMetadataRefreshIntervalMs(10000);
     $config->setMetadataBrokerList('127.0.0.1:9092');
     $config->setGroupId('test');
-    $config->setBrokerVersion('0.10.2.1');
+    $config->setBrokerVersion('0.10.0.1');
     $config->setTopics(array('test'));
     $config->setOffsetReset('earliest');
     $consumer = new \Kafka\Consumer();
     $consumer->start(function ($topic, $part, $message) {
-        var_dump($message);
+        return $message;
     });
 });
