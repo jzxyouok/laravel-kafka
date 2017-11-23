@@ -5,6 +5,7 @@ namespace App\Console\Commands\Kafka;
 use Illuminate\Console\Command;
 use Kafka\Producer;
 use Kafka\ProducerConfig;
+use Monolog\Logger;
 
 class RunProducer extends Command
 {
@@ -37,6 +38,8 @@ class RunProducer extends Command
      */
     public function handle()
     {
+        $logger = new Logger('my_logger');
+
         $config = ProducerConfig::getInstance();
         $config->setMetadataRefreshIntervalMs(10000);
         $config->setMetadataBrokerList('127.0.0.1:9092');
@@ -44,22 +47,24 @@ class RunProducer extends Command
         $config->setRequiredAck(1);
         $config->setIsAsyn(false);
         $config->setProduceInterval(500);
-        $producer = new Producer(function () {
-            return array(
-                array(
-                    'topic' => 'test',
-                    'value' => 'test kafka message.',
-                    'key'   => 'crazy_lee',
-                ),
-            );
-        });
-        $producer->success(function ($result) {
-            return $result;
-        });
-        $producer->error(function ($errorCode) {
-            return $errorCode;
-        });
+        $producer = new Producer();
+        //$producer->setLogger($logger);
+        //$producer->success(function ($result) {
+        //    //操作成功，回调处理
+        //    //var_dump($result);
+        //
+        //    return $result;
+        //});
+        //$producer->error(function ($errorCode) {
+        //    var_dump($errorCode);
+        //});
 
-        $producer->send(true);
+        $producer->send([
+            [
+                'topic' => 'test',
+                'value' => 'what are you doing now?',
+                'key'   => '',
+            ],
+        ]);
     }
 }

@@ -40,7 +40,7 @@ class RunTopic extends Command
         $config->setTopics([
             ['topic' => 'test',
              'value' => 'test kafka message.',
-             'key'   => 'crazy_lee', ],
+             'key'   => '', ],
         ]);
     }
 }

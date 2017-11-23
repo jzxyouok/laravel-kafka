@@ -40,13 +40,13 @@ class RunConsumer extends Command
         $config = ConsumerConfig::getInstance();
         $config->setMetadataRefreshIntervalMs(10000);
         $config->setMetadataBrokerList('127.0.0.1:9092');
-        $config->setGroupId('test');
+        $config->setGroupId('test-consumer-group');
         $config->setBrokerVersion('0.10.0.1');
-        $config->setTopics(array('test'));
+        $config->setTopics(['test']);
         $config->setOffsetReset('earliest');
         $consumer = new Consumer();
         $consumer->start(function ($topic, $part, $message) {
-            return $message;
+            echo $message['message']['value']."\n";
         });
     }
 }
