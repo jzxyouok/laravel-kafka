@@ -38,12 +38,15 @@ class RunConsumer extends Command
     public function handle()
     {
         $config = ConsumerConfig::getInstance();
+        //刷新时间
         $config->setMetadataRefreshIntervalMs(10000);
+        //监听Broker
         $config->setMetadataBrokerList('127.0.0.1:9092');
         $config->setGroupId('test-consumer-group');
         $config->setBrokerVersion('0.10.0.1');
+        //
         $config->setTopics(['test']);
-        $config->setOffsetReset('earliest');
+        //$config->setOffsetReset('earliest');
         $consumer = new Consumer();
         $consumer->start(function ($topic, $part, $message) {
             echo $message['message']['value']."\n";

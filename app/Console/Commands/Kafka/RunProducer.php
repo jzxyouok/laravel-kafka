@@ -5,7 +5,6 @@ namespace App\Console\Commands\Kafka;
 use Illuminate\Console\Command;
 use Kafka\Producer;
 use Kafka\ProducerConfig;
-use Monolog\Logger;
 
 class RunProducer extends Command
 {
@@ -38,14 +37,15 @@ class RunProducer extends Command
      */
     public function handle()
     {
-        $logger = new Logger('my_logger');
-
         $config = ProducerConfig::getInstance();
+        //刷新时间
         $config->setMetadataRefreshIntervalMs(10000);
         $config->setMetadataBrokerList('127.0.0.1:9092');
         $config->setBrokerVersion('0.10.0.1');
         $config->setRequiredAck(1);
+        //同步方式调用
         $config->setIsAsyn(false);
+        //间隔时间
         $config->setProduceInterval(500);
         $producer = new Producer();
         //$producer->setLogger($logger);
