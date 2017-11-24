@@ -36,6 +36,8 @@
 
 `composer require nmred/kafka-php`
 
+## Result
 
+![Kafka](kafka.png)
 
 

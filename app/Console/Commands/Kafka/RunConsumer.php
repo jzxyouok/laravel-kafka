@@ -49,6 +49,7 @@ class RunConsumer extends Command
         //$config->setOffsetReset('earliest');
         $consumer = new Consumer();
         $consumer->start(function ($topic, $part, $message) {
+            //return $message;
             echo $message['message']['value']."\n";
         });
     }

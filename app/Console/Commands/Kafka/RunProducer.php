@@ -62,8 +62,8 @@ class RunProducer extends Command
         $producer->send([
             [
                 'topic' => 'test',
-                'value' => 'what are you doing now?',
-                'key'   => '',
+                'value' => '#'.rand(1, 100).' '.['PHP', 'Python', 'Golang', 'NodeJS', 'JavaScript'][rand(0, 4)].' is the best language.',
+                'key'   => 'Crazy_Leer',
             ],
         ]);
     }
